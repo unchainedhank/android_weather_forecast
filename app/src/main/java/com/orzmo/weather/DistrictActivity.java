@@ -43,6 +43,10 @@ public class DistrictActivity extends AppCompatActivity {
         this.initView();
     }
 
+    /**
+     * @author panilsy@icloud.com
+     * @description 初始化视图
+     */
     private void initView() {
         new Thread(new Runnable(){
             @Override
@@ -58,6 +62,11 @@ public class DistrictActivity extends AppCompatActivity {
         }).start();
     }
 
+    /**
+     * @author panilsy@icloud.com
+     * @description 获取区
+     * @param s
+     */
     private void getNewDistrict(final String s) {
 
         runOnUiThread(new Runnable() {
@@ -92,6 +101,11 @@ public class DistrictActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * @author panilsy@icloud.com
+     * @description 处理点击事件
+     * @param cityName
+     */
     private void handleClickDistrictFirst(String cityName) {
         Intent intent = new Intent(DistrictActivity.this, SecondDistrictActivity.class);
         intent.putExtra("cityName", cityName);

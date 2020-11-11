@@ -19,6 +19,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+/**
+ * @author panilsy@icloud.com
+ * @description json转district助手
+ */
 public class JsonToDistrict {
     private static final String TAG = "JsonToDistrict";
     private String json = "";

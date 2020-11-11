@@ -13,6 +13,10 @@ import org.json.JSONObject;
 
 import java.util.List;
 
+/**
+ * @author panilsy@icloud.com
+ * @description JSON转Cast类助手
+ */
 public class JsonToCast {
     private static final String TAG = "JsonToCast";
     private String json = "";
@@ -26,6 +30,11 @@ public class JsonToCast {
         this.json = json;
     }
 
+    /**
+     * @author panilsy@icloud.com
+     * @description 主要函数
+     * @return
+     */
     public Forecasts getCast() {
         // 新创建一个Forecasts实例
         Forecasts resultForecasts = new Forecasts();

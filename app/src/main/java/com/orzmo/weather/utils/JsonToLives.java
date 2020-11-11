@@ -5,6 +5,10 @@ import com.orzmo.weather.weather.Lives;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+/**
+ * @author panilsy@icloud.com
+ * @description json to lives 助手
+ */
 public class JsonToLives {
     private static final String TAG = "JsonToCast";
     private String json = "";

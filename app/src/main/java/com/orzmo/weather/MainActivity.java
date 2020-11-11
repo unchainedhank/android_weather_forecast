@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.orzmo.weather.utils.CallBack;
 import com.orzmo.weather.utils.JsonToCast;
@@ -48,6 +49,11 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    /**
+     * @author panilsy@icloud.com
+     * @description 初始化视图
+     */
     private void initView() {
 
 
@@ -93,6 +99,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * @author panilsy@icloud.com
+     * @description 处理刷新事件
+     */
+
     private void handleRefresh() {
         livesList.clear();
         SharedPreferences pref = getSharedPreferences("data", Context.MODE_PRIVATE);
@@ -112,21 +123,46 @@ public class MainActivity extends AppCompatActivity {
         if (cityCode!=null && cityName!=null){
             SharedPreferences pref = getSharedPreferences("data", Context.MODE_PRIVATE);
             String oldList = pref.getString("userWatched","");
+
+
+            // 先解构，判断是否存在这个城市了
+            if (!oldList.equals("")) {
+                String[] temp = oldList.split(",");
+
+                for(String k : temp) {
+                    if (k.equals(cityCode)) {
+                        // 存在了
+                        Toast.makeText(MainActivity.this,"您已经添加过这个城市了！", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                }
+
+            }
+
             if (oldList.equals("")) {
                 oldList += cityCode;
             } else {
                 oldList = cityCode + "," + oldList;
             }
+
             SharedPreferences.Editor editor = pref.edit();
             editor.putString("userWatched", oldList);
             editor.putString(cityCode, cityName);
             editor.commit();
 
+            this.handleRefresh();
+
             Log.d(TAG, pref.getString("userWatched", ""));
+
         }
 
     }
 
+    /**
+     * @author panilsy@icloud.com
+     * @description 初始化天气预报
+     * @param cityCode
+     */
     private void initWeather(final String cityCode) {
         new Thread(new Runnable(){
             @Override
@@ -144,6 +180,12 @@ public class MainActivity extends AppCompatActivity {
         }).start();
     }
 
+    /**
+     * @author panilsy@icloud.com
+     * @description 刷新天气的线程函数
+     * @param cityCode
+     */
+
     private void refreshWeather(final String cityCode) {
         new Thread(new Runnable(){
             @Override
@@ -159,7 +201,15 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }).start();
+        Toast.makeText(MainActivity.this,"强制刷新成功！", Toast.LENGTH_LONG).show();
+
     }
+
+    /**
+     * @author panilsy@icloud.com
+     * @description 获取初始化天气的函数
+     * @param json
+     */
 
     private void getNewWeather(final String json) {
         runOnUiThread(new Runnable() {

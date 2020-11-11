@@ -6,6 +6,10 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+/**
+ * @author panilsy@icloud.com
+ * @description 区县获取帮助类，封装请求
+ */
 public class DistrictHelper {
     private static final String TAG = "DistrictHelper";
 
@@ -73,6 +77,11 @@ public class DistrictHelper {
         return baseUrl;
     }
 
+    /**
+     * @author panilsy@icloud.com
+     * @description 编译基础地址
+     * @return
+     */
     private String buildBaseUrl() {
         if (this.keywords.equals("")) {
             return this.baseUrl + "key=" + this.key + "&subdistrict=" + this.subdistrict + "&offset=" + this.offset + "&output=" + this.output;
@@ -83,6 +92,10 @@ public class DistrictHelper {
         }
     }
 
+    /**
+     * @author panilsy@icloud.com
+     * @description 获取省
+     */
     public void getFirstDistrict() {
         try {
             // 创建实例和请求
@@ -99,6 +112,11 @@ public class DistrictHelper {
         }
     }
 
+    /**
+     * @author panilsy@icloud.com
+     * @description 获取地级市
+     * @param code
+     */
     public void getSecondDistrict(String code) {
         this.subdistrict = "1";
         this.keywords = code;

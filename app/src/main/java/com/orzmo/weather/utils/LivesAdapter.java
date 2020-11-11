@@ -12,6 +12,10 @@ import com.orzmo.weather.weather.Lives;
 
 import java.util.List;
 
+/**
+ * @author panilsy@icloud.com
+ * @description 列表的adapter
+ */
 public class LivesAdapter extends ArrayAdapter {
     private int resourceId;
     public LivesAdapter(Context context, int resource, List<Lives> objects) {

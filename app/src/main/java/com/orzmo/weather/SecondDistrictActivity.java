@@ -41,6 +41,11 @@ public class SecondDistrictActivity extends AppCompatActivity {
         this.initView(intent.getStringExtra("cityName"));
     }
 
+    /**
+     * @author panilsy@icloud.com
+     * @description 初始化视图
+     * @param cityName
+     */
     private void initView(final String cityName) {
         new Thread(new Runnable(){
             @Override
@@ -55,6 +60,11 @@ public class SecondDistrictActivity extends AppCompatActivity {
             }
         }).start();
     }
+
+    /**
+     * @author panilsy@icloud.com
+     * @description 获取省份
+     */
 
     private void getNewDistrict(final String s) {
 

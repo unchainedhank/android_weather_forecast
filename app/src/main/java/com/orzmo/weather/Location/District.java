@@ -1,5 +1,9 @@
 package com.orzmo.weather.Location;
 
+/**
+ * @author panilsy@icloud.com
+ * @description 该类储存的是各个区县
+ */
 public class District {
     private String adcode;
     private String name;

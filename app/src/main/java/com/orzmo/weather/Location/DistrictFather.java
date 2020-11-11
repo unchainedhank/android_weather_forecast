@@ -2,6 +2,10 @@ package com.orzmo.weather.Location;
 
 import java.util.List;
 
+/**
+ * @author panilsy@icloud.com
+ * @description 该类储存的是长度+区县
+ */
 public class DistrictFather {
     private int length;
     private List<District> districts;

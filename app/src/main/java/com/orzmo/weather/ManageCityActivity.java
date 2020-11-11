@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class ManageCityActivity extends AppCompatActivity {
 
@@ -22,12 +23,16 @@ public class ManageCityActivity extends AppCompatActivity {
         this.initView();
     }
 
+    /**
+     * @author panilsy@icloud.com
+     * @description 初始化视图
+     */
     private void initView() {
-        final SharedPreferences pref = getSharedPreferences("data", Context.MODE_PRIVATE);
+        SharedPreferences pref = getSharedPreferences("data", Context.MODE_PRIVATE);
         String list = pref.getString("userWatched","");
 
         if (!list.equals("")){
-            final String[] cityCodes = list.split(",");
+            String[] cityCodes = list.split(",");
             String[] cityNames = new String[cityCodes.length];
             int i = 0;
             for (String item : cityCodes) {
@@ -43,36 +48,7 @@ public class ManageCityActivity extends AppCompatActivity {
             lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, final int mk, long l) {
-                    AlertDialog.Builder dialog = new AlertDialog.Builder(ManageCityActivity.this);
-                    dialog.setTitle("确定删除");
-                    dialog.setMessage("您确定要删除，您关注的这个城市吗？该数据不可恢复！🙅‍♂️");
-                    dialog.setCancelable(false);
-                    dialog.setPositiveButton("删除", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            String cityCodesString = "";
-                            for (int j=0;j<cityCodes.length;j++){
-                                if (j != mk) {
-                                    if (cityCodesString.equals("")) {
-                                        cityCodesString = cityCodes[j];
-                                    } else {
-                                        cityCodesString += ","  + cityCodes[j];
-                                    }
-                                }
-                            }
-                            SharedPreferences.Editor editor = pref.edit();
-                            editor.putString("userWatched", cityCodesString);
-                            editor.commit();
-                            reloadCity();
-                        }
-                    });
-                    dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-
-                        }
-                    });
-                    dialog.show();
+                    makeDailog(mk);
                 }
             });
         }
@@ -80,6 +56,55 @@ public class ManageCityActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * @author panilsy@icloud.com
+     * @description 弹出dailog的东西
+     * @param mk
+     */
+    private void makeDailog(final int mk) {
+        final SharedPreferences pref = getSharedPreferences("data", Context.MODE_PRIVATE);
+        String list = pref.getString("userWatched","");
+        final String[] cityCodes = list.split(",");
+        final String[] cityNames = new String[cityCodes.length];
+        AlertDialog.Builder dialog = new AlertDialog.Builder(ManageCityActivity.this);
+        dialog.setTitle("确定删除");
+        dialog.setMessage("您确定要删除，您关注的这个城市吗？该数据不可恢复！🙅‍♂️");
+        dialog.setCancelable(false);
+        dialog.setPositiveButton("删除", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                String cityCodesString = "";
+                for (int j=0;j<cityCodes.length;j++){
+                    if (j != mk) {
+                        if (cityCodesString.equals("")) {
+                            cityCodesString = cityCodes[j];
+                        } else {
+                            cityCodesString += ","  + cityCodes[j];
+                        }
+                    }
+                }
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putString("userWatched", cityCodesString);
+                editor.commit();
+                reloadCity();
+                Toast.makeText(ManageCityActivity.this,"删除城市成功！", Toast.LENGTH_LONG).show();
+
+            }
+        });
+        dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(ManageCityActivity.this,"呵呵呵，怎么不删了？", Toast.LENGTH_LONG).show();
+
+            }
+        });
+        dialog.show();
+    }
+
+    /**
+     * @author panilsy@icloud.com
+     * @description 负责删完了刷新的函数
+     */
     private void reloadCity() {
         final SharedPreferences pref = getSharedPreferences("data", Context.MODE_PRIVATE);
         String list = pref.getString("userWatched","");

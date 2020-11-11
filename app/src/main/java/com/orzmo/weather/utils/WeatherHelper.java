@@ -14,6 +14,10 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+/**
+ * @author panilsy@icloud.com
+ * @description 获取天气助手函数
+ */
 public class WeatherHelper {
 
     private static final String TAG = "WeatherHelper";
