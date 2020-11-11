@@ -2,23 +2,19 @@ package com.orzmo.weather;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import com.orzmo.weather.Location.District;
 import com.orzmo.weather.Location.DistrictFather;
 import com.orzmo.weather.utils.CallBack;
 import com.orzmo.weather.utils.DistrictHelper;
 import com.orzmo.weather.utils.JsonToDistrict;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 public class SecondDistrictActivity extends AppCompatActivity {
 
@@ -29,14 +25,6 @@ public class SecondDistrictActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         Intent intent = getIntent();
         this.initView(intent.getStringExtra("cityName"));
     }
@@ -83,8 +71,8 @@ public class SecondDistrictActivity extends AppCompatActivity {
                     i++;
                 }
 
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(SecondDistrictActivity.this, android.R.layout.simple_list_item_1,data);
-                ListView lv = (ListView) findViewById(R.id.list_view2);
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(SecondDistrictActivity.this, android.R.layout.simple_list_item_1, data);
+                ListView lv = findViewById(R.id.list_view2);
                 lv.setAdapter(adapter);
 
                 lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {

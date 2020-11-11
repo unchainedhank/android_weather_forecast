@@ -41,8 +41,8 @@ public class ManageCityActivity extends AppCompatActivity {
             }
 
 
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(ManageCityActivity.this, android.R.layout.simple_list_item_1,cityNames);
-            ListView lv = (ListView) findViewById(R.id.list_view3);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(ManageCityActivity.this, android.R.layout.simple_list_item_1, cityNames);
+            ListView lv = findViewById(R.id.list_view3);
             lv.setAdapter(adapter);
 
             lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -65,7 +65,6 @@ public class ManageCityActivity extends AppCompatActivity {
         final SharedPreferences pref = getSharedPreferences("data", Context.MODE_PRIVATE);
         String list = pref.getString("userWatched","");
         final String[] cityCodes = list.split(",");
-        final String[] cityNames = new String[cityCodes.length];
         AlertDialog.Builder dialog = new AlertDialog.Builder(ManageCityActivity.this);
         dialog.setTitle("确定删除");
         dialog.setMessage("您确定要删除，您关注的这个城市吗？该数据不可恢复！🙅‍♂️");
@@ -73,19 +72,19 @@ public class ManageCityActivity extends AppCompatActivity {
         dialog.setPositiveButton("删除", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                String cityCodesString = "";
+                StringBuilder cityCodesString = new StringBuilder();
                 for (int j=0;j<cityCodes.length;j++){
                     if (j != mk) {
-                        if (cityCodesString.equals("")) {
-                            cityCodesString = cityCodes[j];
+                        if (cityCodesString.toString().equals("")) {
+                            cityCodesString = new StringBuilder(cityCodes[j]);
                         } else {
-                            cityCodesString += ","  + cityCodes[j];
+                            cityCodesString.append(",").append(cityCodes[j]);
                         }
                     }
                 }
                 SharedPreferences.Editor editor = pref.edit();
-                editor.putString("userWatched", cityCodesString);
-                editor.commit();
+                editor.putString("userWatched", cityCodesString.toString());
+                editor.apply();
                 reloadCity();
                 Toast.makeText(ManageCityActivity.this,"删除城市成功！", Toast.LENGTH_LONG).show();
 
@@ -115,8 +114,8 @@ public class ManageCityActivity extends AppCompatActivity {
             cityNames[i] = pref.getString(item, "") + " / " + item;
             i++;
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(ManageCityActivity.this, android.R.layout.simple_list_item_1,cityNames);
-        ListView lv = (ListView) findViewById(R.id.list_view3);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(ManageCityActivity.this, android.R.layout.simple_list_item_1, cityNames);
+        ListView lv = findViewById(R.id.list_view3);
         lv.setAdapter(adapter);
     }
 }

@@ -1,44 +1,39 @@
 package com.orzmo.weather;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.orzmo.weather.utils.CallBack;
-import com.orzmo.weather.utils.JsonToCast;
 import com.orzmo.weather.utils.JsonToLives;
 import com.orzmo.weather.utils.LivesAdapter;
 import com.orzmo.weather.utils.WeatherHelper;
-import com.orzmo.weather.weather.Forecasts;
 import com.orzmo.weather.weather.Lives;
+import com.yalantis.phoenix.PullToRefreshView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
-    private String outSideTest = "";
     private LivesAdapter livesAdapter;
     private ListView listView;
-    private List<Lives> livesList = new ArrayList<Lives>();
+    private final List<Lives> livesList = new ArrayList<>();
+    private PullToRefreshView pullToRefreshView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        this.listView = (ListView) this.findViewById(R.id.home_list);
+        this.listView = this.findViewById(R.id.home_list);
 
         this.initView();
         Intent intent = getIntent();
@@ -79,15 +74,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button refreshButton = findViewById(R.id.button_refresh);
-        refreshButton.setOnClickListener(new View.OnClickListener() {
+        pullToRefreshView = findViewById(R.id.pull_to_refresh);
+        pullToRefreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
             @Override
-            public void onClick(View view) {
-                handleRefresh();
+            public void onRefresh() {
+                pullToRefreshView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        handleRefresh();
+                        pullToRefreshView.setRefreshing(false);
+                    }
+                },1200);
             }
         });
-
-
 
         if (!list.equals("")) {
             String[] cityCodes = list.split(",");
@@ -148,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
             SharedPreferences.Editor editor = pref.edit();
             editor.putString("userWatched", oldList);
             editor.putString(cityCode, cityName);
-            editor.commit();
+            editor.apply();
 
             this.handleRefresh();
 

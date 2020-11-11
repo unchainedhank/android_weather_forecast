@@ -2,25 +2,20 @@ package com.orzmo.weather;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.orzmo.weather.Location.District;
-import com.orzmo.weather.Location.DistrictFather;
-import com.orzmo.weather.utils.CallBack;
-import com.orzmo.weather.utils.DistrictHelper;
-import com.orzmo.weather.utils.JsonToDistrict;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import java.util.List;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import com.orzmo.weather.Location.District;
+import com.orzmo.weather.Location.DistrictFather;
+import com.orzmo.weather.utils.CallBack;
+import com.orzmo.weather.utils.DistrictHelper;
+import com.orzmo.weather.utils.JsonToDistrict;
 
 public class DistrictActivity extends AppCompatActivity {
     private static final String TAG = "DistrictActivity";
@@ -31,14 +26,6 @@ public class DistrictActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         this.initView();
     }
@@ -82,8 +69,8 @@ public class DistrictActivity extends AppCompatActivity {
                     data[i] = item.getName();
                     i++;
                 }
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(DistrictActivity.this, android.R.layout.simple_list_item_1,data);
-                ListView lv = (ListView) findViewById(R.id.list_view1);
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(DistrictActivity.this, android.R.layout.simple_list_item_1, data);
+                ListView lv = findViewById(R.id.list_view1);
                 lv.setAdapter(adapter);
 
                 lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {

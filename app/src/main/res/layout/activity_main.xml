@@ -30,23 +30,22 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="管理一个城市" />
-            <Button
-                android:id="@+id/button_refresh"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="强制刷新" />
+
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
+        <com.yalantis.phoenix.PullToRefreshView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/pull_to_refresh">
             <ListView
                 android:id="@+id/home_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-        </LinearLayout>
+        </com.yalantis.phoenix.PullToRefreshView>
+    </LinearLayout>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
