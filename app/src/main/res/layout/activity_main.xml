@@ -24,12 +24,7 @@
                 android:layout_weight="1"
                 android:text="添加一个城市" />
 
-            <Button
-                android:id="@+id/button_manage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="管理一个城市" />
+
 
         </LinearLayout>
 

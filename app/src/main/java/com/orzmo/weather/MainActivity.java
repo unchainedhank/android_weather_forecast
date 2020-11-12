@@ -1,15 +1,18 @@
 package com.orzmo.weather;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.orzmo.weather.utils.CallBack;
@@ -34,11 +37,57 @@ public class MainActivity extends AppCompatActivity {
 
         this.listView = this.findViewById(R.id.home_list);
 
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                makeDailog(position);
+                return true;
+            }
+        });
         this.initView();
         Intent intent = getIntent();
         String cityCode = intent.getStringExtra("cityCode");
         String cityName = intent.getStringExtra("cityName");
         this.addWatchCity(cityCode, cityName);
+    }
+
+    private void makeDailog(final int mk) {
+        final SharedPreferences pref = getSharedPreferences("data", Context.MODE_PRIVATE);
+        String list = pref.getString("userWatched","");
+        final String[] cityCodes = list.split(",");
+        AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+        dialog.setTitle("确定删除");
+        dialog.setMessage("您确定要删除️");
+        dialog.setCancelable(false);
+        dialog.setPositiveButton("删除", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                StringBuilder cityCodesString = new StringBuilder();
+                for (int j=0;j<cityCodes.length;j++){
+                    if (j != mk) {
+                        if (cityCodesString.toString().equals("")) {
+                            cityCodesString = new StringBuilder(cityCodes[j]);
+                        } else {
+                            cityCodesString.append(",").append(cityCodes[j]);
+                        }
+                    }
+                }
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putString("userWatched", cityCodesString.toString());
+                editor.apply();
+                handleRefresh();
+                Toast.makeText(MainActivity.this,"删除城市成功！", Toast.LENGTH_LONG).show();
+
+            }
+        });
+        dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(MainActivity.this,"呵呵呵，怎么不删了？", Toast.LENGTH_LONG).show();
+
+            }
+        });
+        dialog.show();
     }
 
     /**
@@ -60,14 +109,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button manageButton = findViewById(R.id.button_manage);
-        manageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, ManageCityActivity.class);
-                startActivity(intent);
-            }
-        });
 
         pullToRefreshView = findViewById(R.id.pull_to_refresh);
         pullToRefreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
