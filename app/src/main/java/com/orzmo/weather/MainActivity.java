@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String TAG = "MainActivity";
     private LivesAdapter livesAdapter;
     private ListView listView;
     private final List<Lives> livesList = new ArrayList<>();
@@ -40,9 +39,6 @@ public class MainActivity extends AppCompatActivity {
         String cityCode = intent.getStringExtra("cityCode");
         String cityName = intent.getStringExtra("cityName");
         this.addWatchCity(cityCode, cityName);
-
-
-
     }
 
     /**
@@ -54,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences pref = getSharedPreferences("data", Context.MODE_PRIVATE);
         String list = pref.getString("userWatched", "");
-
 
         Button addButton = findViewById(R.id.button_add);
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -119,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addWatchCity(String cityCode, String cityName) {
+        livesList.clear();
         if (cityCode!=null && cityName!=null){
             SharedPreferences pref = getSharedPreferences("data", Context.MODE_PRIVATE);
             String oldList = pref.getString("userWatched","");
@@ -150,9 +146,6 @@ public class MainActivity extends AppCompatActivity {
             editor.apply();
 
             this.handleRefresh();
-
-            Log.d(TAG, pref.getString("userWatched", ""));
-
         }
 
     }
@@ -197,7 +190,6 @@ public class MainActivity extends AppCompatActivity {
                 });
                 weatherHelper.setExtensions("base");
                 weatherHelper.getWeatherNotCache(getPreferences(Context.MODE_PRIVATE));
-
             }
         }).start();
         Toast.makeText(MainActivity.this,"强制刷新成功！", Toast.LENGTH_LONG).show();
@@ -217,13 +209,9 @@ public class MainActivity extends AppCompatActivity {
                 JsonToLives jtl = new JsonToLives(json);
                 Lives live = jtl.getLive();
                 livesList.add(live);
-//                livesList.sort();
                 livesAdapter = new LivesAdapter(MainActivity.this, R.layout.item, livesList);
                 listView.setAdapter(livesAdapter);
             }
         });
-
-//        JsonToCast jtc = new JsonToCast(json);
-//        Forecasts forecasts = jtc.getCast();
     }
 }

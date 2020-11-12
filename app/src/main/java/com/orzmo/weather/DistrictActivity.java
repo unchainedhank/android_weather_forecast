@@ -2,7 +2,6 @@ package com.orzmo.weather;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,7 +17,6 @@ import com.orzmo.weather.utils.DistrictHelper;
 import com.orzmo.weather.utils.JsonToDistrict;
 
 public class DistrictActivity extends AppCompatActivity {
-    private static final String TAG = "DistrictActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,7 +75,6 @@ public class DistrictActivity extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                         District d = districts.getDistricts().get(i);
-                        Log.d(TAG, d.getName());
                         handleClickDistrictFirst(d.getName());
                     }
                 });
