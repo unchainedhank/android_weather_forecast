@@ -1,5 +1,6 @@
 package com.orzmo.weather;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -16,13 +17,11 @@ import com.orzmo.weather.utils.CallBack;
 import com.orzmo.weather.utils.DistrictHelper;
 import com.orzmo.weather.utils.JsonToDistrict;
 
-public class DistrictActivity extends AppCompatActivity {
+public class DistrictActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_district);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
 
         this.initView();

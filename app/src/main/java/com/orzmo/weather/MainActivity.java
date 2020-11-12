@@ -1,14 +1,13 @@
 package com.orzmo.weather;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -24,13 +23,16 @@ import com.orzmo.weather.weather.Lives;
 import com.yalantis.phoenix.PullToRefreshView;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
     private LivesAdapter livesAdapter;
     private ListView listView;
     private final List<Lives> livesList = new ArrayList<>();
     private PullToRefreshView pullToRefreshView;
+    public static int deleteLength = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,10 +59,10 @@ public class MainActivity extends AppCompatActivity {
         String list = pref.getString("userWatched","");
         final String[] cityCodes = list.split(",");
         AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
-        dialog.setTitle("确定删除");
-        dialog.setMessage("您确定要删除️");
+        dialog.setTitle("Delete Confirm");
+        dialog.setMessage("Confirm?");
         dialog.setCancelable(false);
-        dialog.setPositiveButton("删除", new DialogInterface.OnClickListener() {
+        dialog.setPositiveButton("delete", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 StringBuilder cityCodesString = new StringBuilder();
@@ -77,15 +79,14 @@ public class MainActivity extends AppCompatActivity {
                 editor.putString("userWatched", cityCodesString.toString());
                 editor.apply();
                 handleRefresh();
-                Toast.makeText(MainActivity.this,"删除城市成功！", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this,"Delete Success", Toast.LENGTH_SHORT).show();
 
             }
         });
         dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(MainActivity.this,"呵呵呵，怎么不删了？", Toast.LENGTH_LONG).show();
-
+                Toast.makeText(MainActivity.this,"Cancelled", Toast.LENGTH_SHORT).show();
             }
         });
         dialog.show();
@@ -187,8 +188,7 @@ public class MainActivity extends AppCompatActivity {
             editor.putString("userWatched", oldList);
             editor.putString(cityCode, cityName);
             editor.apply();
-
-            this.handleRefresh();
+            handleRefresh();
         }
 
     }
@@ -222,6 +222,7 @@ public class MainActivity extends AppCompatActivity {
      */
 
     private void refreshWeather(final String cityCode) {
+        this.livesList.clear();
         new Thread(new Runnable(){
             @Override
             public void run() {
@@ -235,7 +236,7 @@ public class MainActivity extends AppCompatActivity {
                 weatherHelper.getWeatherNotCache(getPreferences(Context.MODE_PRIVATE));
             }
         }).start();
-        Toast.makeText(MainActivity.this,"data access", Toast.LENGTH_LONG).show();
+        Toast.makeText(MainActivity.this,"data refreshed", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -251,10 +252,29 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 JsonToLives jtl = new JsonToLives(json);
                 Lives live = jtl.getLive();
-                livesList.add(live);
+//                livesList.add(live);
+                removeDup(live);
                 livesAdapter = new LivesAdapter(MainActivity.this, R.layout.item, livesList);
                 listView.setAdapter(livesAdapter);
             }
         });
+    }
+
+    private void removeDup(Lives lives) {
+//        List<Lives> result = new ArrayList<Lives>(livesList.size());
+        boolean flag = true;
+        for (Lives str : this.livesList) {
+//            if (!result.contains(str)) {
+//                result.add(str);
+//            }
+            if (str.getAdcode().equals(lives.getAdcode())) {
+                flag = false;
+                break;
+            }
+        }
+
+        if (flag) {
+            this.livesList.add(lives);
+        }
     }
 }
