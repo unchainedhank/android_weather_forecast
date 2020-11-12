@@ -233,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
                 weatherHelper.getWeatherNotCache(getPreferences(Context.MODE_PRIVATE));
             }
         }).start();
-        Toast.makeText(MainActivity.this,"强制刷新成功！", Toast.LENGTH_LONG).show();
+        Toast.makeText(MainActivity.this,"data access", Toast.LENGTH_LONG).show();
 
     }
 
