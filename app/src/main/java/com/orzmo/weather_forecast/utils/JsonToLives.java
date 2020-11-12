@@ -1,6 +1,6 @@
-package com.orzmo.weather.utils;
+package com.orzmo.weather_forecast.utils;
 
-import com.orzmo.weather.weather.Lives;
+import com.orzmo.weather_forecast.weather.Lives;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

@@ -1,4 +1,4 @@
-package com.orzmo.weather;
+package com.orzmo.weather_forecast;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,20 +12,17 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.orzmo.weather.utils.CallBack;
-import com.orzmo.weather.utils.JsonToLives;
-import com.orzmo.weather.utils.LivesAdapter;
-import com.orzmo.weather.utils.WeatherHelper;
-import com.orzmo.weather.weather.Lives;
+import com.orzmo.weather_forecast.utils.CallBack;
+import com.orzmo.weather_forecast.utils.JsonToLives;
+import com.orzmo.weather_forecast.utils.LivesAdapter;
+import com.orzmo.weather_forecast.utils.WeatherHelper;
+import com.orzmo.weather_forecast.weather.Lives;
 import com.yalantis.phoenix.PullToRefreshView;
 
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class MainActivity extends Activity {
     private LivesAdapter livesAdapter;
@@ -106,7 +103,7 @@ public class MainActivity extends Activity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, DistrictActivity.class);
+                Intent intent = new Intent(MainActivity.this, ProvinceActivity.class);
                 startActivity(intent);
             }
         });

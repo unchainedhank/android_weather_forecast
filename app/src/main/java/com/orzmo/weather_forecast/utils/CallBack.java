@@ -1,4 +1,4 @@
-package com.orzmo.weather.utils;
+package com.orzmo.weather_forecast.utils;
 
 /**
  * @author panilsy@icloud.com

@@ -1,4 +1,4 @@
-package com.orzmo.weather.weather;
+package com.orzmo.weather_forecast.weather;
 
 public class Cast {
     private String date;

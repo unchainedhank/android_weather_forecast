@@ -1,14 +1,7 @@
-package com.orzmo.weather.utils;
+package com.orzmo.weather_forecast.utils;
 
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.util.Log;
-
-import com.orzmo.weather.utils.CallBack;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

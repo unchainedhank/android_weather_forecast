@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DistrictActivity">
+    tools:context=".CityActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -12,9 +12,10 @@
         android:theme="@style/AppTheme.AppBarOverlay">
 
 
+
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_district" />
+    <include layout="@layout/content_city" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

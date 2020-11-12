@@ -1,4 +1,4 @@
-package com.orzmo.weather;
+package com.orzmo.weather_forecast;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,15 +8,14 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
-import com.orzmo.weather.Location.District;
-import com.orzmo.weather.Location.DistrictFather;
-import com.orzmo.weather.utils.CallBack;
-import com.orzmo.weather.utils.DistrictHelper;
-import com.orzmo.weather.utils.JsonToDistrict;
+import com.orzmo.weather_forecast.Location.District;
+import com.orzmo.weather_forecast.Location.DistrictParse;
+import com.orzmo.weather_forecast.utils.CallBack;
+import com.orzmo.weather_forecast.utils.DistrictHelper;
+import com.orzmo.weather_forecast.utils.JsonToDistrict;
 
-public class SecondDistrictActivity extends AppCompatActivity {
+public class CityActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +23,7 @@ public class SecondDistrictActivity extends AppCompatActivity {
             getSupportActionBar().hide();
         }
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_second_district);
+        setContentView(R.layout.activity_city);
 
         Intent intent = getIntent();
         this.initView(intent.getStringExtra("cityName"));
@@ -63,7 +62,7 @@ public class SecondDistrictActivity extends AppCompatActivity {
             public void run() {
 
                 JsonToDistrict jtd = new JsonToDistrict(s);
-                final DistrictFather districts = jtd.getDistricts();
+                final DistrictParse districts = jtd.getDistricts();
 
                 String[] data = new String[districts.getLength()];
                 int i = 0;
@@ -72,14 +71,14 @@ public class SecondDistrictActivity extends AppCompatActivity {
                     i++;
                 }
 
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(SecondDistrictActivity.this, android.R.layout.simple_list_item_1, data);
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(CityActivity.this, android.R.layout.simple_list_item_1, data);
                 ListView lv = findViewById(R.id.list_view2);
                 lv.setAdapter(adapter);
 
                 lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        Intent intent = new Intent(SecondDistrictActivity.this, MainActivity.class);
+                        Intent intent = new Intent(CityActivity.this, MainActivity.class);
                         intent.putExtra("cityCode", districts.getDistricts().get(i).getAdcode());
                         intent.putExtra("cityName", districts.getDistricts().get(i).getName());
                         startActivity(intent);

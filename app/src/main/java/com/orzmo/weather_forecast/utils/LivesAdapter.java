@@ -1,4 +1,4 @@
-package com.orzmo.weather.utils;
+package com.orzmo.weather_forecast.utils;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.orzmo.weather.R;
-import com.orzmo.weather.weather.Lives;
+import com.orzmo.weather_forecast.R;
+import com.orzmo.weather_forecast.weather.Lives;
 
 import java.util.List;
 

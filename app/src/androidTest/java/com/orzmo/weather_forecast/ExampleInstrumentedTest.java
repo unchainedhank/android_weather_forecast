@@ -1,4 +1,4 @@
-package com.orzmo.weather;
+package com.orzmo.weather_forecast;
 
 import android.content.Context;
 

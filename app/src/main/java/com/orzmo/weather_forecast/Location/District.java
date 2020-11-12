@@ -1,4 +1,4 @@
-package com.orzmo.weather.Location;
+package com.orzmo.weather_forecast.Location;
 
 /**
  * @author panilsy@icloud.com

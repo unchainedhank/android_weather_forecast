@@ -1,23 +1,16 @@
-package com.orzmo.weather.utils;
+package com.orzmo.weather_forecast.utils;
 
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.orzmo.weather.Location.District;
-import com.orzmo.weather.Location.DistrictFather;
-import com.orzmo.weather.weather.Cast;
+import com.orzmo.weather_forecast.Location.District;
+import com.orzmo.weather_forecast.Location.DistrictParse;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 /**
  * @author panilsy@icloud.com
@@ -40,7 +33,7 @@ public class JsonToDistrict {
         this.cb = cb;
     }
 
-    public DistrictFather getDistricts() {
+    public DistrictParse getDistricts() {
         try {
             JSONObject jsonObject = new JSONObject(this.json);
             String requestStatus = jsonObject.getString("status");
@@ -59,10 +52,10 @@ public class JsonToDistrict {
             for(District test: districtList) {
                 System.out.println(test.getName());
             }
-            DistrictFather districtFather = new DistrictFather();
-            districtFather.setDistricts(districtList);
-            districtFather.setLength(districtList.size());
-            return districtFather;
+            DistrictParse districtParse = new DistrictParse();
+            districtParse.setDistricts(districtList);
+            districtParse.setLength(districtList.size());
+            return districtParse;
         } catch (Exception e) {
             Log.e(TAG, e.toString());
             return null;

@@ -1,12 +1,12 @@
-package com.orzmo.weather.utils;
+package com.orzmo.weather_forecast.utils;
 
 import android.util.Log;
 
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.orzmo.weather.weather.Cast;
-import com.orzmo.weather.weather.Forecasts;
+import com.orzmo.weather_forecast.weather.Cast;
+import com.orzmo.weather_forecast.weather.Forecasts;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

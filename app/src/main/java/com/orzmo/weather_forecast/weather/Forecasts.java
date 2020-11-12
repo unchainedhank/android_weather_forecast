@@ -1,4 +1,4 @@
-package com.orzmo.weather.weather;
+package com.orzmo.weather_forecast.weather;
 
 import java.util.List;
 
