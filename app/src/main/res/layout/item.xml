@@ -8,9 +8,9 @@
 
     <TextView
         android:id="@+id/home_list_province"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="30dp"
+        android:textSize="0dp"
         android:textColor="#303133"
         android:layout_marginLeft="5dp"
         />
@@ -18,48 +18,56 @@
         android:id="@+id/home_list_city"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:textColor="#606266"
-        android:gravity="right"
+        android:textSize="40dp"
+        android:textColor="#000"
+        android:text="city"
+        android:gravity="center"
         />
     <TextView
         android:id="@+id/home_list_weather"
+        android:text="tianqi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20dp"
-        android:textColor="#909399"
-        android:gravity="right"
+        android:textColor="#000"
+        android:gravity="center"
         />
     <TextView
         android:id="@+id/home_list_temperature"
+        android:text="wendu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:textColor="#909399"
-        android:gravity="right"
+        android:textSize="35dp"
+        android:textColor="#000"
+        android:gravity="center"
         />
+
+
     <TextView
         android:id="@+id/home_list_winddirection"
+        android:text="fengxiang"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20dp"
-        android:textColor="#909399"
-        android:gravity="right"
+        android:textColor="#000"
+        android:gravity="center"
         />
     <TextView
         android:id="@+id/home_list_windpower"
+        android:text="fengli"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20dp"
-        android:textColor="#909399"
-        android:gravity="right"
+        android:textColor="#000"
+        android:gravity="center"
         />
     <TextView
         android:id="@+id/home_list_humidity"
+        android:text="shidu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20dp"
-        android:textColor="#909399"
-        android:gravity="right"
+        android:textColor="#000"
+        android:gravity="center"
         />
 </LinearLayout>

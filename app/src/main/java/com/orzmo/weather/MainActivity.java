@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.orzmo.weather.utils.CallBack;
 import com.orzmo.weather.utils.JsonToLives;
 import com.orzmo.weather.utils.LivesAdapter;
@@ -100,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences pref = getSharedPreferences("data", Context.MODE_PRIVATE);
         String list = pref.getString("userWatched", "");
 
-        Button addButton = findViewById(R.id.button_add);
+        FloatingActionButton addButton = findViewById(R.id.button_add);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -108,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
 
 
         pullToRefreshView = findViewById(R.id.pull_to_refresh);
