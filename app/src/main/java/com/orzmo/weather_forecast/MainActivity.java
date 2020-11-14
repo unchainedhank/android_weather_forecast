@@ -15,10 +15,9 @@ import androidx.appcompat.app.AlertDialog;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.orzmo.weather_forecast.utils.CallBack;
-import com.orzmo.weather_forecast.utils.JsonToLives;
+import com.orzmo.weather_forecast.utils.JsonToItems;
 import com.orzmo.weather_forecast.utils.LivesAdapter;
-import com.orzmo.weather_forecast.utils.WeatherHelper;
-import com.orzmo.weather_forecast.weather.Lives;
+import com.orzmo.weather_forecast.utils.WeatherRequest;
 import com.yalantis.phoenix.PullToRefreshView;
 
 import java.util.ArrayList;
@@ -27,9 +26,9 @@ import java.util.List;
 public class MainActivity extends Activity {
     private LivesAdapter livesAdapter;
     private ListView listView;
-    private final List<Lives> livesList = new ArrayList<>();
+    private final List<Items> itemsList = new ArrayList<>();
     private PullToRefreshView pullToRefreshView;
-    public static int deleteLength = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -140,7 +139,7 @@ public class MainActivity extends Activity {
      */
 
     private void handleRefresh() {
-        livesList.clear();
+        itemsList.clear();
         SharedPreferences pref = getSharedPreferences("data", Context.MODE_PRIVATE);
         String list = pref.getString("userWatched", "");
 
@@ -155,7 +154,7 @@ public class MainActivity extends Activity {
     }
 
     private void addWatchCity(String cityCode, String cityName) {
-        livesList.clear();
+        itemsList.clear();
         if (cityCode!=null && cityName!=null){
             SharedPreferences pref = getSharedPreferences("data", Context.MODE_PRIVATE);
             String oldList = pref.getString("userWatched","");
@@ -190,88 +189,73 @@ public class MainActivity extends Activity {
 
     }
 
-    /**
-     * @author panilsy@icloud.com
-     * @description 初始化天气预报
-     * @param cityCode
-     */
     private void initWeather(final String cityCode) {
         new Thread(new Runnable(){
             @Override
             public void run() {
-                WeatherHelper weatherHelper = new WeatherHelper(cityCode, new CallBack() {
+                WeatherRequest weatherRequest = new WeatherRequest(cityCode, new CallBack() {
                     @Override
                     public void run (String s) {
                         getNewWeather(s);
                     }
                 });
-                weatherHelper.setExtensions("base");
-                weatherHelper.getWeatherWithCache(getPreferences(Context.MODE_PRIVATE));
+                weatherRequest.setExtensions("base");
+                weatherRequest.getWeatherWithCache(getPreferences(Context.MODE_PRIVATE));
 
             }
         }).start();
     }
 
-    /**
-     * @author panilsy@icloud.com
-     * @description 刷新天气的线程函数
-     * @param cityCode
-     */
 
     private void refreshWeather(final String cityCode) {
-        this.livesList.clear();
+        this.itemsList.clear();
         new Thread(new Runnable(){
             @Override
             public void run() {
-                WeatherHelper weatherHelper = new WeatherHelper(cityCode, new CallBack() {
+                WeatherRequest weatherRequest = new WeatherRequest(cityCode, new CallBack() {
                     @Override
                     public void run (String s) {
                         getNewWeather(s);
                     }
                 });
-                weatherHelper.setExtensions("base");
-                weatherHelper.getWeatherNotCache(getPreferences(Context.MODE_PRIVATE));
+                weatherRequest.setExtensions("base");
+                weatherRequest.getWeatherNotCache(getPreferences(Context.MODE_PRIVATE));
             }
         }).start();
         Toast.makeText(MainActivity.this,"data refreshed", Toast.LENGTH_SHORT).show();
 
     }
 
-    /**
-     * @author panilsy@icloud.com
-     * @description 获取初始化天气的函数
-     * @param json
-     */
 
     private void getNewWeather(final String json) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                JsonToLives jtl = new JsonToLives(json);
-                Lives live = jtl.getLive();
+                JsonToItems jtl = new JsonToItems(json);
+                Items live = jtl.getLive();
 //                livesList.add(live);
                 removeDup(live);
-                livesAdapter = new LivesAdapter(MainActivity.this, R.layout.item, livesList);
+                livesAdapter = new LivesAdapter(MainActivity.this, R.layout.item, itemsList);
                 listView.setAdapter(livesAdapter);
             }
         });
     }
 
-    private void removeDup(Lives lives) {
+    private void removeDup(Items items) {
 //        List<Lives> result = new ArrayList<Lives>(livesList.size());
         boolean flag = true;
-        for (Lives str : this.livesList) {
+        for (Items str : this.itemsList) {
 //            if (!result.contains(str)) {
 //                result.add(str);
 //            }
-            if (str.getAdcode().equals(lives.getAdcode())) {
+            if (str.getAdcode().equals(items.getAdcode())) {
                 flag = false;
                 break;
             }
         }
 
         if (flag) {
-            this.livesList.add(lives);
+            this.itemsList.add(items);
         }
     }
 }

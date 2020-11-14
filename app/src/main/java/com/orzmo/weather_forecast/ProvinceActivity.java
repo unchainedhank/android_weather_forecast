@@ -11,7 +11,7 @@ import android.widget.ListView;
 import com.orzmo.weather_forecast.Location.District;
 import com.orzmo.weather_forecast.Location.DistrictParse;
 import com.orzmo.weather_forecast.utils.CallBack;
-import com.orzmo.weather_forecast.utils.DistrictHelper;
+import com.orzmo.weather_forecast.utils.JsonUtil;
 import com.orzmo.weather_forecast.utils.JsonToDistrict;
 
 public class ProvinceActivity extends Activity {
@@ -32,22 +32,17 @@ public class ProvinceActivity extends Activity {
         new Thread(new Runnable(){
             @Override
             public void run() {
-                DistrictHelper districtHelper = new DistrictHelper(new CallBack() {
+                JsonUtil jsonUtil = new JsonUtil(new CallBack() {
                     @Override
                     public void run (String s) {
                         getNewDistrict(s);
                     }
                 });
-                districtHelper.getFirstDistrict();
+                jsonUtil.getProvince();
             }
         }).start();
     }
 
-    /**
-     * @author panilsy@icloud.com
-     * @description 获取区
-     * @param s
-     */
     private void getNewDistrict(final String s) {
 
         runOnUiThread(new Runnable() {
@@ -81,11 +76,6 @@ public class ProvinceActivity extends Activity {
 
     }
 
-    /**
-     * @author panilsy@icloud.com
-     * @description 处理点击事件
-     * @param cityName
-     */
     private void handleClickDistrictFirst(String cityName) {
         Intent intent = new Intent(ProvinceActivity.this, CityActivity.class);
         intent.putExtra("cityName", cityName);

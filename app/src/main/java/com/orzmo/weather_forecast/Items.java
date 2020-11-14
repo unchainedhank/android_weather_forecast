@@ -1,6 +1,6 @@
-package com.orzmo.weather_forecast.weather;
+package com.orzmo.weather_forecast;
 
-public class Lives {
+public class Items {
     private String province;
     private String city;
     private String adcode;
@@ -11,10 +11,10 @@ public class Lives {
     private String humidity;
     private String reporttime;
 
-    public Lives() {
+    public Items() {
     }
 
-    public Lives(String province, String city, String adcode, String weather, String temperature, String winddirection, String windpower, String humidity, String reporttime) {
+    public Items(String province, String city, String adcode, String weather, String temperature, String winddirection, String windpower, String humidity, String reporttime) {
         this.province = province;
         this.city = city;
         this.adcode = adcode;

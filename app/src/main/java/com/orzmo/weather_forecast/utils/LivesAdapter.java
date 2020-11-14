@@ -1,5 +1,6 @@
 package com.orzmo.weather_forecast.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,25 +9,22 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.orzmo.weather_forecast.R;
-import com.orzmo.weather_forecast.weather.Lives;
+import com.orzmo.weather_forecast.Items;
 
 import java.util.List;
 
-/**
- * @author panilsy@icloud.com
- * @description 列表的adapter
- */
 public class LivesAdapter extends ArrayAdapter {
-    private int resourceId;
-    public LivesAdapter(Context context, int resource, List<Lives> objects) {
+    private final int resourceId;
+    public LivesAdapter(Context context, int resource, List<Items> objects) {
         super(context, resource, objects);
         this.resourceId = resource;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Lives lives = (Lives) getItem(position);
-        View view = LayoutInflater.from(getContext()).inflate(resourceId, parent, false);
+        Items items = (Items) getItem(position);
+        @SuppressLint("ViewHolder") View view = LayoutInflater.from(getContext()).inflate(resourceId, parent, false);
         TextView province = view.findViewById(R.id.home_list_province);
         TextView city = view.findViewById(R.id.home_list_city);
         TextView weather = view.findViewById(R.id.home_list_weather);
@@ -35,13 +33,13 @@ public class LivesAdapter extends ArrayAdapter {
         TextView humidty = view.findViewById(R.id.home_list_humidity);
         TextView windpower = view.findViewById(R.id.home_list_windpower);
 
-        province.setText(lives.getProvince());
-        city.setText(lives.getCity());
-        weather.setText("天气：" + lives.getWeather());
-        temperature.setText("温度：" + lives.getTemperature());
-        winddirection.setText("风向：" + lives.getWinddirection());
-        humidty.setText("湿度：" + lives.getHumidity());
-        windpower.setText("风速：" + lives.getWindpower());
+        province.setText(items.getProvince());
+        city.setText(items.getCity());
+        weather.setText("天气：" + items.getWeather());
+        temperature.setText("温度：" + items.getTemperature());
+        winddirection.setText("风向：" + items.getWinddirection());
+        humidty.setText("湿度：" + items.getHumidity());
+        windpower.setText("风速：" + items.getWindpower());
         return view;
     }
 }

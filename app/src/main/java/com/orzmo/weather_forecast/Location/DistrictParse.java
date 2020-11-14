@@ -2,10 +2,6 @@ package com.orzmo.weather_forecast.Location;
 
 import java.util.List;
 
-/**
- * @author panilsy@icloud.com
- * @description 该类储存的是长度+区县
- */
 public class DistrictParse {
     private int length;
     private List<District> districts;

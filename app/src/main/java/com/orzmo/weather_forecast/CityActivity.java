@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.orzmo.weather_forecast.Location.District;
 import com.orzmo.weather_forecast.Location.DistrictParse;
 import com.orzmo.weather_forecast.utils.CallBack;
-import com.orzmo.weather_forecast.utils.DistrictHelper;
+import com.orzmo.weather_forecast.utils.JsonUtil;
 import com.orzmo.weather_forecast.utils.JsonToDistrict;
 
 public class CityActivity extends AppCompatActivity {
@@ -29,30 +29,20 @@ public class CityActivity extends AppCompatActivity {
         this.initView(intent.getStringExtra("cityName"));
     }
 
-    /**
-     * @author panilsy@icloud.com
-     * @description 初始化视图
-     * @param cityName
-     */
     private void initView(final String cityName) {
         new Thread(new Runnable(){
             @Override
             public void run() {
-                DistrictHelper districtHelper = new DistrictHelper(new CallBack() {
+                JsonUtil jsonUtil = new JsonUtil(new CallBack() {
                     @Override
                     public void run (String s) {
                         getNewDistrict(s);
                     }
                 });
-                districtHelper.getSecondDistrict(cityName);
+                jsonUtil.getCity(cityName);
             }
         }).start();
     }
-
-    /**
-     * @author panilsy@icloud.com
-     * @description 获取省份
-     */
 
     private void getNewDistrict(final String s) {
 

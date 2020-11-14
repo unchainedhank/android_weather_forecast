@@ -12,25 +12,13 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-/**
- * @author panilsy@icloud.com
- * @description json转district助手
- */
 public class JsonToDistrict {
     private static final String TAG = "JsonToDistrict";
-    private String json = "";
-    private CallBack cb = null;
-
-    public JsonToDistrict() {
-    }
+    private final String json;
+    private final CallBack cb = null;
 
     public JsonToDistrict(String json) {
         this.json = json;
-    }
-
-    public JsonToDistrict(String json, CallBack cb) {
-        this.json = json;
-        this.cb = cb;
     }
 
     public DistrictParse getDistricts() {
